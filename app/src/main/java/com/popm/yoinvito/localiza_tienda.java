@@ -71,12 +71,12 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
 */
         miUbicacion();
 
-        for (Tienda tienda: Tiendas()){
+        /**for (Tienda tienda: Tiendas()){
             Marker marker = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(tienda.getLatitud_x(),tienda.getLatitud_y()))
                             .title(tienda.getNombre())
                     );
-        }
+        }**/
 
     }
 
@@ -92,8 +92,20 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
         marcador = mMap.addMarker(new MarkerOptions()
                 .position(coordenadas)
                 .title("Ubicacion actual")
+                .snippet("Aqui estoy")
         );
         mMap.animateCamera(ubicacion);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Toast.makeText(localiza_tienda.this, "CLICK", Toast.LENGTH_LONG).show();
+
+
+                return false;
+            }
+        });
     }
 
 

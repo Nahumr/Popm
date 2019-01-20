@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -22,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.registro);
 
-        Button mapa = (Button) findViewById(R.id.mapa);
+/**        Button mapa = (Button) findViewById(R.id.mapa);
 
         mapa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent (v.getContext(), localiza_tienda.class);
                 startActivityForResult(intent, 0);
             }
-        });
+        });*/
+
+
 
     }
 

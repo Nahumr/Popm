@@ -3,10 +3,12 @@ package com.popm.yoinvito;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.SQLException;
 import android.graphics.Camera;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -22,6 +24,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class localiza_tienda extends FragmentActivity implements OnMapReadyCallback {
 
@@ -61,6 +70,14 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
         mMap.getUiSettings().setZoomControlsEnabled(true);
 */
         miUbicacion();
+
+        for (Tienda tienda: Tiendas()){
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(tienda.getLatitud_x(),tienda.getLatitud_y()))
+                            .title(tienda.getNombre())
+                    );
+        }
+
     }
 
 
@@ -130,6 +147,62 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,locListener);
     }
+
+    public Connection conexionBD(){
+        Connection conexion = null;
+
+        try{
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
+
+            conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://200.38.35.62; databaseName = XLR8: user = popmobile2: password = R3c4rg4f4c1l2.16#");
+
+            Toast.makeText(getApplicationContext(), "Conexion exitosa", Toast.LENGTH_LONG ).show();
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+        }
+
+
+        return conexion;
+    }
+
+
+
+    public List<Tienda> Tiendas (){
+
+        List<Tienda> tiendas  = new ArrayList<>();
+
+        try {
+
+            Statement statement = conexionBD().createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM TIENDAS");
+
+            while (resultSet.next()){
+                    tiendas.add(new Tienda(
+                                            resultSet.getInt("id_tienda"),
+                                            resultSet.getInt("calif"),
+                                            resultSet.getString("nombre"),
+                                            resultSet.getFloat("latitud_x"),
+                                            resultSet.getFloat("latitud_y")
+                    ));
+
+            }
+
+        }catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return tiendas;
+    }
+
+
+
+
 }
 
 

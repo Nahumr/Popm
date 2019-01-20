@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void agregarUsuario(){
 
-
         try{
 
             PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO ");

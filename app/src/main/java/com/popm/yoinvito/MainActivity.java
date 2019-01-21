@@ -7,6 +7,7 @@ import android.os.StrictMode;
 import android.service.autofill.RegexValidator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                registrarUsuario();
+                //registrarUsuario();
+
+                Intent ListSong = new Intent(getApplicationContext(), localiza_tienda.class);
+                startActivity(ListSong);
 
             }
         });
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             //                    + "user=popmobile2;password=R3c4rg4f4c1l2.16#;");
 
             conexion = DriverManager.getConnection(""
-                    + "jdbc:jtds:sqlserver://192.168.100.5/PRUEBA;"
+                    + "jdbc:jtds:sqlserver://192.168.100.5/XLR8;"
                     + "user=SA;password=Rodriguez1$;");
 
 
@@ -85,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void registrarUsuario(){
 
         try{
 
-            //PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO USUARIO (nombre, apellido_p, apellido_m, fecha_nac, correo, sexo, saldo, rfc, telefono)");
-            PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO USUARIO (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            //PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO USUARIO (nombre, apellido_p, apellido_m, fecha_nac, correo, sexo, saldo, rfc, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
             pst.setString(1 , datosPersonales(nombre_ed));
             pst.setString(2 , datosPersonales(apellido_p_ed));
             pst.setString(3 , datosPersonales(apellido_m_ed) );
@@ -101,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
             pst.setFloat(7 , 0);
             pst.setString(8, Usuario.RFC(validaDatos(datosPersonales(apellido_p_ed)),validaDatos(datosPersonales(apellido_m_ed)), validaDatos(datosPersonales(nombre_ed)),datoFechaS(fecha_nac_ed)));
             pst.setString(9 , datoTelefono(telefono_ed));
+
             pst.executeUpdate();
 
             Toast.makeText(getApplicationContext(),"Usuario creado exitosamente",Toast.LENGTH_LONG).show();
 
         }catch (SQLException e) {
 
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_LONG).show();
+            Log.e("ERROR", e.getMessage());
         }
 
     }

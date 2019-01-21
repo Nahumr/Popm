@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -55,7 +56,7 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-  /*      if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+       if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -68,15 +69,21 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
         mMap.setMyLocationEnabled(true);
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
-*/
-        miUbicacion();
 
-        /**for (Tienda tienda: Tiendas()){
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(tienda.getLatitud_x(),tienda.getLatitud_y()))
-                            .title(tienda.getNombre())
-                    );
-        }**/
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Toast.makeText(localiza_tienda.this, "CLICK", Toast.LENGTH_LONG).show();
+
+
+                return false;
+            }
+        });
+
+        agregarTiendas();
+
+
 
     }
 
@@ -96,18 +103,18 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
         );
         mMap.animateCamera(ubicacion);
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
 
-                Toast.makeText(localiza_tienda.this, "CLICK", Toast.LENGTH_LONG).show();
-
-
-                return false;
-            }
-        });
     }
 
+    private void agregarTiendas(){
+        for (Tienda tienda : Tiendas()){
+            LatLng ubicacion = new LatLng(tienda.getLatitud_x(),tienda.getLatitud_y());
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(ubicacion)
+                    .title(tienda.getNombre())
+            );
+        }
+    }
 
     private void actualizarUbicacion(Location location) {
 
@@ -170,9 +177,9 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
 
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
 
-            conexion = DriverManager.getConnection("jdbc:jtds:sqlserver://200.38.35.62; databaseName = XLR8: user = popmobile2: password = R3c4rg4f4c1l2.16#");
-
-            Toast.makeText(getApplicationContext(), "Conexion exitosa", Toast.LENGTH_LONG ).show();
+            conexion = DriverManager.getConnection(""
+                    + "jdbc:jtds:sqlserver://192.168.100.5/XLR8;"
+                    + "user=SA;password=Rodriguez1$;");
 
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
@@ -191,7 +198,7 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
         try {
 
             Statement statement = conexionBD().createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM TIENDAS");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM TIENDA");
 
             while (resultSet.next()){
                     tiendas.add(new Tienda(

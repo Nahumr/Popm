@@ -114,11 +114,11 @@
             android:src="@mipmap/form1" />
 
         <EditText
-            android:id="@+id/fnacimiento"
+            android:id="@+id/registro_fnacimiento"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:hint="Fecha de nacimiento AÑO/MES/DIA"
+            android:hint="Fecha de nacimiento AÑO-MES-DIA"
             android:padding="10dp"
             android:textColorHint="#FFFFFF"
             android:inputType="phone"

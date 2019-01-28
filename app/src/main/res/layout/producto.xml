@@ -42,6 +42,8 @@
                         android:layout_height="wrap_content"
                         android:text="Nombre del producto"
                         android:id="@+id/CvNombre"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
                         />
 
                 <TextView
@@ -66,12 +68,16 @@
                 android:orientation="vertical">
 
 
+                <Spinner
+                    android:id="@+id/CvCantidad"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+"
-                    android:id="@+id/CvAdd"
+                    android:id="@+id/CvAgregar"
                     />
 
             </LinearLayout>

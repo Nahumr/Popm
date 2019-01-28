@@ -74,7 +74,7 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                Toast.makeText(localiza_tienda.this, "CLICK", Toast.LENGTH_LONG).show();
+                Toast.makeText(localiza_tienda.this, "Tienda", Toast.LENGTH_LONG).show();
 
 
                 return false;

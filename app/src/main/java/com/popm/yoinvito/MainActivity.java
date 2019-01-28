@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
                 //registrarUsuario();
 
-                Intent ListSong = new Intent(getApplicationContext(), localiza_tienda.class);
+                Intent ListSong = new Intent(getApplicationContext(), lista_productos.class);
                 startActivity(ListSong);
+
+
 
             }
         });
@@ -69,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
 
 
-            //conexion = DriverManager.getConnection(""
-            //                    + "jdbc:jtds:sqlserver://200.38.35.62:1433/XLR8;"
-            //                    + "user=popmobile2;password=R3c4rg4f4c1l2.16#;");
+           /* conexion = DriverManager.getConnection(""
+                                + "jdbc:jtds:sqlserver://200.38.35.62:1433/XLR8;"
+                                + "user=popmobile2;password=R3c4rg4f4c1l2.16#;");*/
 
-            conexion = DriverManager.getConnection(""
+          conexion = DriverManager.getConnection(""
                     + "jdbc:jtds:sqlserver://192.168.100.5/XLR8;"
                     + "user=SA;password=Rodriguez1$;");
 

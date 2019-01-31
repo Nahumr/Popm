@@ -2,6 +2,7 @@ package com.popm.yoinvito;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.SQLException;
 import android.graphics.Camera;
@@ -40,6 +41,7 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
     double lat = 0.0;
     double lon = 0.0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +76,8 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                Toast.makeText(localiza_tienda.this, "Tienda", Toast.LENGTH_LONG).show();
-
+                Intent ListSong = new Intent(getApplicationContext(), lista_productos.class);
+                startActivity(ListSong);
 
                 return false;
             }
@@ -113,6 +115,7 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
                     .position(ubicacion)
                     .title(tienda.getNombre())
             );
+
         }
     }
 
@@ -192,7 +195,6 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
 
 
     public List<Tienda> Tiendas (){
-
         List<Tienda> tiendas  = new ArrayList<>();
 
         try {
@@ -214,7 +216,6 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
         }catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-
 
         return tiendas;
     }

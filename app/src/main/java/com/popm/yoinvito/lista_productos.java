@@ -33,7 +33,7 @@ public class lista_productos extends AppCompatActivity {
         recycle.setLayoutManager(llm);
         recycle.setHasFixedSize(true);
         Productos();
-        RecyclerAdapter adapter = new RecyclerAdapter(list);
+        RecyclerAdapter adapter = new RecyclerAdapter(list,getApplicationContext());
         recycle.setAdapter(adapter);
     }
 

@@ -1,6 +1,7 @@
 package com.popm.yoinvito.Productos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +10,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.support.design.widget.Snackbar;
 
+import com.popm.yoinvito.Carrito;
 import com.popm.yoinvito.R;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -27,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
         TextView precio;
         TextView vuelto;
         Spinner cantidad;
-        Button agregar;
+        ImageButton agregar;
 
         PersonViewHolder(View itemView) {
             super(itemView);
@@ -36,7 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
             precio = (TextView)itemView.findViewById(R.id.CvPrecio);
             vuelto = (TextView)itemView.findViewById(R.id.CvVuelto);
             cantidad = (Spinner)itemView.findViewById(R.id.CvCantidad);
-
+            agregar = (ImageButton) itemView.findViewById(R.id.CvAgregar);
         }
     }
 
@@ -69,6 +75,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
         personViewHolder.precio.setText("Precio: $"+String.valueOf(productos.get(i).getPrecio()));
         personViewHolder.vuelto.setText("Te devolvemos: $"+String.valueOf(productos.get(i).getVuelto()));
 
+        personViewHolder.agregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(context,"Agregado al carrito",Toast.LENGTH_LONG).show();
+                Snackbar.make(v, "Agregado al carrito", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+
+
+            }
+        });
+
+
     }
 
     @Override
@@ -84,5 +103,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
+
 
 }

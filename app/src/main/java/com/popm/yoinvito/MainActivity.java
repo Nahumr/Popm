@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //registrarUsuario();
 
-                Intent ListSong = new Intent(getApplicationContext(), lista_productos.class);
+                Intent ListSong = new Intent(getApplicationContext(), localiza_tienda.class);
                 startActivity(ListSong);
 
 

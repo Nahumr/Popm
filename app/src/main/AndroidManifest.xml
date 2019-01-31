@@ -19,7 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".lista_productos"></activity>
+        <activity
+            android:name=".Controlador"
+            android:label="@string/title_activity_controlador"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".lista_productos" />
         <activity android:name=".Carrito" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

@@ -37,28 +37,28 @@
                 android:orientation="vertical"
                 >
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nombre del producto"
-                        android:id="@+id/CvNombre"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del producto"
+                    android:id="@+id/CI_Nombre"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Precio del producto"
-                    android:id="@+id/CvPrecio"
+                    android:text="Total"
+                    android:id="@+id/CI_Cantidad"
                     android:textSize="15dp"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Precio del producto"
-                    android:id="@+id/CvVuelto"
+                    android:text="Subtotal"
+                    android:id="@+id/CI_subtotal"
                     android:textSize="15dp"
                     />
 
@@ -71,18 +71,11 @@
                 android:layout_margin="10dp"
                 >
 
-
-                <Spinner
-                    android:id="@+id/CvCantidad"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/carrito_add"
-                    android:id="@+id/CvAgregar"
-                    android:background="@null"
+                    android:src="@mipmap/carrito_delete"
+                    android:id="@+id/CI_Eliminar"
                     />
 
             </LinearLayout>

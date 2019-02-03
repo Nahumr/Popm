@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
 
 
-    private EditText nombre_ed, apellido_p_ed, apellido_m_ed, fecha_nac_ed,correo_ed,telefono_ed;
+    private EditText nombre_ed, apellido_p_ed, apellido_m_ed, fecha_nac_ed,correo_ed,telefono_ed,pass_ed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         fecha_nac_ed = (EditText) findViewById(R.id.registro_fnacimiento);
         correo_ed = (EditText) findViewById(R.id.registro_correo);
         telefono_ed = (EditText) findViewById(R.id.registro_telefono);
+        pass_ed = (EditText) findViewById(R.id.registro_pass);
 
         Button mapa = (Button) findViewById(R.id.registrar);
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //registrarUsuario();
 
-                Intent ListSong = new Intent(getApplicationContext(), localiza_tienda.class);
+                Intent ListSong = new Intent(getApplicationContext(), Controlador.class);
                 startActivity(ListSong);
 
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         try{
 
             //PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO USUARIO (nombre, apellido_p, apellido_m, fecha_nac, correo, sexo, saldo, rfc, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pst = conexionBD().prepareStatement("INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
 
             pst.setString(1 , datosPersonales(nombre_ed));
             pst.setString(2 , datosPersonales(apellido_p_ed));
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             pst.setFloat(7 , 0);
             pst.setString(8, Usuario.RFC(validaDatos(datosPersonales(apellido_p_ed)),validaDatos(datosPersonales(apellido_m_ed)), validaDatos(datosPersonales(nombre_ed)),datoFechaS(fecha_nac_ed)));
             pst.setString(9 , datoTelefono(telefono_ed));
-
+            pst.setString(10,pass_ed.getText().toString());
             pst.executeUpdate();
 
             Toast.makeText(getApplicationContext(),"Usuario creado exitosamente",Toast.LENGTH_LONG).show();

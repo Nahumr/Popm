@@ -1,7 +1,8 @@
 package com.popm.yoinvito.Productos;
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,17 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.design.widget.Snackbar;
 
-import com.popm.yoinvito.Carrito;
+import com.popm.yoinvito.Compras.Admin_SQLite;
 import com.popm.yoinvito.R;
 
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -49,6 +47,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
     Context context;
     List<Producto> productos;
 
+
     public RecyclerAdapter(List<Producto> productos, Context context){
         this.productos = productos;
         this.context = context;
@@ -67,7 +66,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
     }
 
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
+    public void onBindViewHolder(final PersonViewHolder personViewHolder, final int i) {
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.cantidad_array,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         personViewHolder.cantidad.setAdapter(adapter);
@@ -78,7 +78,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
         personViewHolder.agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context,"Agregado al carrito",Toast.LENGTH_LONG).show();
+
+                agregarC(v,productos.get(i).getCodigo_barras(),Integer.valueOf(personViewHolder.cantidad.getSelectedItem().toString()));
+
                 Snackbar.make(v, "Agregado al carrito", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
@@ -104,6 +106,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Person
         // Another interface callback
     }
 
+    public void agregarC (View v, String cb, int cantidad){
 
+        Admin_SQLite admin =  new Admin_SQLite(context,"Detalles_c",null,1);
+        SQLiteDatabase sql = admin.getWritableDatabase();
+        ContentValues agregar = new ContentValues();
+
+        agregar.put("producto_cb",cb);
+        agregar.put("producto_cantidad",cantidad);
+
+        sql.insert("Detalles_c",null,agregar);
+        sql.close();
+
+    }
 
 }

@@ -11,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -76,9 +77,10 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
             @Override
             public boolean onMarkerClick(Marker marker) {
 
-                Intent ListSong = new Intent(getApplicationContext(), lista_productos.class);
-                startActivity(ListSong);
 
+                Integer id_tienda= (Integer) marker.getTag();
+
+                Toast.makeText(getApplicationContext(),id_tienda.toString(),Toast.LENGTH_LONG).show();
                 return false;
             }
         });
@@ -114,8 +116,10 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(ubicacion)
                     .title(tienda.getNombre())
+
             );
 
+            marker.setTag(tienda.getId_tienda());
         }
     }
 
@@ -127,7 +131,6 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
             agregarMarcador(lat, lon);
         }
     }
-
 
 
     LocationListener locListener = new LocationListener() {
@@ -218,6 +221,11 @@ public class localiza_tienda extends FragmentActivity implements OnMapReadyCallb
         }
 
         return tiendas;
+
+
+
+
+
     }
 
 

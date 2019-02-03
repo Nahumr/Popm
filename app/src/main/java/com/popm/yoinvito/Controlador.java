@@ -2,9 +2,6 @@ package com.popm.yoinvito;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -78,7 +75,7 @@ public class Controlador extends AppCompatActivity
             Intent ListSong = new Intent(getApplicationContext(), localiza_tienda.class);
             startActivity(ListSong);
         } else if (id == R.id.monedero) {
-            Intent ListSong = new Intent(getApplicationContext(), lista_productos.class);
+            Intent ListSong = new Intent(getApplicationContext(), Lista_productos.class);
             startActivity(ListSong);
         } else if (id == R.id.carrito) {
 

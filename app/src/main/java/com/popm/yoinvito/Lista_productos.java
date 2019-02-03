@@ -19,7 +19,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class lista_productos extends AppCompatActivity {
+public class Lista_productos extends AppCompatActivity {
 
     RecyclerView recycle;
     List<Producto> list = new ArrayList<Producto>();
